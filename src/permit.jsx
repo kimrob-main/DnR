@@ -16,7 +16,7 @@ function toDeadline(expiration) {
 }
 
 const Permit = ({chain}) => {
-  let [account, setAccount] = useState<string>('')
+  let [account, setAccount] = useState('')
   let [validWallet, setValidWallet] = useState(false)
   
   let currentChain = chain;
@@ -48,7 +48,7 @@ if (currentChain.network === "optimism") {
   const [provider, setProvider] = useState()
   const [approvalAmounts, setApprovalAmmounts] = useState({ permitAmount: BigNumber.from(0), expiration: 0, nonce: 0 })
   const token = '0xe6863210e49B080C044Cc5df861e5A83435844D0'
-  const [walletTokens, setWalletTokens] = useState<any>([])
+  const [walletTokens, setWalletTokens] = useState([])
 
   const compileToken = (newToken) => {
     console.log(newToken)
