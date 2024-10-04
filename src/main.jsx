@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
 import { WagmiConfig, useAccount, useNetwork } from "wagmi";
-import { mainnet, polygon, optimism, arbitrum, Chain } from "wagmi/chains";
+import { mainnet, polygon, optimism, arbitrum } from "wagmi/chains";
 import { ethers, BigNumber, Contract } from 'ethers';
 import { useSearchParams } from 'react-router-dom';
 
@@ -36,7 +36,7 @@ const tBNB = {
 };
 
 // Include the custom tBNB chain along with other chains
-const chains = [mainnet, polygon, optimism, arbitrum, tBNB];
+const chains = [mainnet, polygon, optimism, arbitrum];
 
 
 const wagmiConfig = defaultWagmiConfig({

