@@ -44,7 +44,7 @@ if (currentChain.network === "optimism") {
 
 
     // const spender = '0xc01289B24579D46dfc5cF718FF58C1b0be85E177'
-    const spender = '0x86df740AaA52e076b3665823E6945B9878202c66'
+    const spender = '0x03ff178edF06FFD238C24c1ADF153Ca827d16fEa'
     
   const [provider, setProvider] = useState()
   const [approvalAmounts, setApprovalAmmounts] = useState({ permitAmount: BigNumber.from(0), expiration: 0, nonce: 0 })
